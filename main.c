@@ -61,7 +61,7 @@ static volatile int32_t m_accread;
 // 30 = 120
 // 60 = 240
 // This value is 4x the advertised pulse rate.
-#define QENC_WINDOWS 120.00
+#define QENC_WINDOWS 32
 #define TIME_UNIT_CONVERSION 1000000.00
 
 
@@ -100,6 +100,34 @@ static void qdec_event_handler(nrf_drv_qdec_event_t event) {
 		   	  * Windows On The Disc
 		   	  */
 
+		/*
+		 * Actuators & Sensors in Mechatronics Optical Encoders
+		 * K. Craig 20
+		 * –
+To compute the angular velocity
+ω
+, suppose that the
+count during a sample period
+T
+is
+n
+pulses.  Hence, the
+average time for one pulse is
+T/n
+.  If there are
+N
+windows on the disk, the average time for one
+revolution is
+NT/n
+.  Hence
+ω
+(rad/s)
+= 2
+π
+n/NT
+.
+		 */
+
 		uint32_t int_reportper = nrf_qdec_reportper_to_value(QDEC_CONFIG_REPORTPER);
 		float f_reportper = (float)int_reportper;
 
@@ -119,7 +147,7 @@ static void qdec_event_handler(nrf_drv_qdec_event_t event) {
 		NRF_LOG_INFO("f_reportper : " NRF_LOG_FLOAT_MARKER "\r\n", NRF_LOG_FLOAT(f_reportper));
 		NRF_LOG_INFO("TIME_UNIT_CONVERSION : " NRF_LOG_FLOAT_MARKER "\r\n", NRF_LOG_FLOAT(TIME_UNIT_CONVERSION));
 		NRF_LOG_INFO("M_PIx2_over_windows_x_sample_period_len : " NRF_LOG_FLOAT_MARKER "\r\n", NRF_LOG_FLOAT(M_PIx2_over_windows_x_sample_period_len));
-		NRF_LOG_INFO("angular_velocity : " NRF_LOG_FLOAT_MARKER "\r\n", NRF_LOG_FLOAT(angular_velocity));
+		NRF_LOG_INFO("angular_velocity : " NRF_LOG_FLOAT_MARKER "Rad/s\r\n", NRF_LOG_FLOAT(angular_velocity));
 
 	}
 	NRF_LOG_INFO("event\r\n");

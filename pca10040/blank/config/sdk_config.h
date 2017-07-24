@@ -173,7 +173,7 @@
 // <7=> 280 Samples 
 
 #ifndef QDEC_CONFIG_REPORTPER
-#define QDEC_CONFIG_REPORTPER 3
+#define QDEC_CONFIG_REPORTPER 7
 #endif
 
 // <o> QDEC_CONFIG_SAMPLEPER  - Sample period
